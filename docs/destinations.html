@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Destinations — Lanby Docs</title>
+  <meta name="description" content="Configure where Lanby sends alerts — webhooks, Telegram, topic routing, and the dead-letter queue." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #09090c;
+      --surface:   #111116;
+      --surface-2: #16161c;
+      --border:    #1e1e28;
+      --border-2:  #26262f;
+      --text:      #e8e8ed;
+      --muted:     #70707a;
+      --muted-2:   #4a4a54;
+      --accent:    #6366f1;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9, 9, 12, 0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-left { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; }
+    .nav-home    { font-weight: 700; color: #fff; letter-spacing: -0.02em; text-decoration: none; }
+    .nav-sep     { color: var(--muted-2); }
+    .nav-link    { color: var(--muted); text-decoration: none; }
+    .nav-link:hover { color: var(--text); }
+    .nav-current { color: var(--text); }
+
+    .nav-console {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.85rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 0.45rem;
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+    .nav-console:hover { background: #4f46e5; text-decoration: none; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 720px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+
+    .sidebar {
+      padding: 2.5rem 1.5rem 2.5rem 0;
+      border-right: 1px solid var(--border);
+      position: sticky;
+      top: 56px;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+
+    .sidebar-section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      padding: 0 0.5rem;
+      margin-bottom: 0.4rem;
+      margin-top: 1.25rem;
+    }
+    .sidebar-section-label:first-child { margin-top: 0; }
+
+    .sidebar a {
+      display: block;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-radius: 0.35rem;
+      text-decoration: none;
+      transition: background 0.1s, color 0.1s;
+    }
+    .sidebar a:hover  { background: var(--surface); color: var(--text); }
+    .sidebar a.active { color: var(--accent); background: rgba(99,102,241,0.08); }
+
+    .sidebar a.sub {
+      font-size: 0.8rem;
+      padding-left: 1.25rem;
+      border-left: 1px solid var(--border-2);
+      border-radius: 0;
+      margin-left: 0.5rem;
+      color: var(--muted-2);
+    }
+    .sidebar a.sub:hover { background: none; color: var(--text); border-left-color: var(--accent); }
+
+    .content { padding: 3rem 2.5rem 6rem; min-width: 0; }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--text); }
+    .breadcrumb-sep { color: var(--muted-2); }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      scroll-margin-top: 76px;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-top: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.925rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0.85rem;
+    }
+
+    ul, ol {
+      margin: 0.4rem 0 0.85rem 1.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.9;
+    }
+
+    .callout {
+      border-radius: 0.6rem;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.875rem;
+      line-height: 1.65;
+      margin: 1.25rem 0;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .callout-icon { flex-shrink: 0; margin-top: 0.05rem; }
+    .callout.info {
+      background: rgba(99, 102, 241, 0.07);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+    }
+    .callout.tip {
+      background: rgba(52, 211, 153, 0.07);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      color: #6ee7b7;
+    }
+
+    code {
+      font-family: ui-monospace, "Cascadia Code", "Fira Mono", monospace;
+      font-size: 0.82em;
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      padding: 0.1em 0.4em;
+      border-radius: 0.3rem;
+      color: #c4b5fd;
+    }
+
+    pre {
+      background: #0d0d11;
+      border: 1px solid var(--border);
+      border-radius: 0.6rem;
+      padding: 1.1rem 1.4rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    /* Destination cards */
+    .dest-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 0.85rem;
+      overflow: hidden;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .dest-card {
+      background: var(--surface);
+      padding: 1.5rem 1.75rem;
+    }
+
+    .dest-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .dest-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 0.45rem;
+      background: var(--bg);
+      border: 1px solid var(--border-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .dest-icon svg { width: 18px; height: 18px; }
+
+    .dest-card h3 { margin: 0; font-size: 1rem; font-weight: 600; color: #fff; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+    }
+    .badge.live {
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      color: #6ee7b7;
+    }
+    .badge.planned {
+      background: rgba(100, 116, 139, 0.1);
+      border: 1px solid var(--border-2);
+      color: var(--muted);
+    }
+    .badge-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+    .dest-card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .doc-footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .doc-footer a { font-size: 0.85rem; color: var(--muted); text-decoration: none; }
+    .doc-footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-left">
+      <a href="/" class="nav-home">Lanby</a>
+      <span class="nav-sep">/</span>
+      <a href="/docs/" class="nav-link">Docs</a>
+      <span class="nav-sep">/</span>
+      <span class="nav-current">Destinations</span>
+    </div>
+    <a href="https://console.lanby.dev" class="nav-console">Console →</a>
+  </nav>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <p class="sidebar-section-label">Concepts</p>
+      <a href="/docs/relays.html">Relay agents</a>
+
+      <p class="sidebar-section-label">Monitoring</p>
+      <a href="/docs/monitors.html">Monitor types</a>
+      <a href="/docs/monitors.html#probes" class="sub">Probes</a>
+      <a href="/docs/keepalive.html" class="sub">Keepalives</a>
+
+      <p class="sidebar-section-label">Alerts &amp; Notifications</p>
+      <a href="/docs/destinations.html" class="active">Destinations</a>
+      <a href="#webhooks" class="sub">Webhooks</a>
+      <a href="#telegram" class="sub">Telegram</a>
+      <a href="#topics" class="sub">Topic routing</a>
+      <a href="#dlq" class="sub">Dead-letter queue</a>
+      <a href="#planned" class="sub">Planned destinations</a>
+      <a href="/docs/notifications.html">Notification API</a>
+    </aside>
+
+    <article class="content">
+
+      <div class="breadcrumb">
+        <a href="/docs/">Docs</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Destinations</span>
+      </div>
+
+      <h1>Destinations</h1>
+      <p class="page-sub">A destination is where Lanby delivers alerts and notifications — a webhook endpoint, a Telegram chat, or any other channel you configure. Destinations are shared across monitors: configure one, use it everywhere.</p>
+
+      <h2 id="overview">How destinations work</h2>
+      <p>
+        Monitors and the <a href="/docs/notifications.html">notification API</a> both produce events. Those events are routed to destinations via <strong>topics</strong>. Every destination subscribes to one or more topics; every monitor and notification is published to a topic. Lanby fans each event out to all destinations subscribed to that topic.
+      </p>
+      <p>
+        You configure destinations once in the console under <strong>Destinations</strong>, then reference them by topic in each monitor's alert settings.
+      </p>
+
+      <!-- ── Destination types ── -->
+      <h2 id="types">Available destinations</h2>
+
+      <div class="dest-list">
+
+        <div class="dest-card">
+          <div class="dest-card-header">
+            <div class="dest-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+            </div>
+            <h3>Webhook</h3>
+            <span class="badge live"><span class="badge-dot"></span>Live</span>
+          </div>
+          <p>Posts a JSON payload to any HTTPS URL you control. Works with anything that can receive an HTTP POST — Home Assistant automations, n8n, Make, Zapier, your own backend, or a serverless function.</p>
+        </div>
+
+        <div class="dest-card">
+          <div class="dest-card-header">
+            <div class="dest-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <h3>Telegram</h3>
+            <span class="badge live"><span class="badge-dot"></span>Live</span>
+          </div>
+          <p>Delivers messages to a Telegram chat — personal, group, or channel. Lanby links to your chat via the console's OAuth flow; no bot token setup required on your end. Supports configurable message templates with Markdown formatting.</p>
+        </div>
+
+      </div>
+
+      <!-- ── Webhooks ── -->
+      <h2 id="webhooks">Webhooks</h2>
+      <p>
+        Create a webhook destination by providing a URL. Lanby sends a <code>POST</code> request with a JSON body whenever an event is routed to that destination.
+      </p>
+
+      <h3>Payload</h3>
+      <p>The webhook payload is a JSON object with the following shape:</p>
+      <pre><code>{
+  "id":        "evt_01j...",
+  "type":      "monitor.down",
+  "topic":     "homelab",
+  "monitor": {
+    "id":      "mon_01j...",
+    "name":    "NAS HTTP check",
+    "url":     "http://192.168.1.10:5000"
+  },
+  "message":   "Connection refused",
+  "priority":  3,
+  "fired_at":  "2025-11-14T03:21:05Z"
+}</code></pre>
+
+      <p>Event types: <code>monitor.down</code>, <code>monitor.degraded</code>, <code>monitor.recovered</code>, <code>notification</code>.</p>
+
+      <h3>Custom headers</h3>
+      <p>You can add arbitrary HTTP headers to webhook requests — useful for passing a shared secret to your endpoint for verification.</p>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <span>Lanby retries failed webhook deliveries with exponential backoff. After all retries are exhausted, the event is moved to the <a href="#dlq">dead-letter queue</a>.</span>
+      </div>
+
+      <!-- ── Telegram ── -->
+      <h2 id="telegram">Telegram</h2>
+      <p>
+        Link your Telegram account (or a group/channel) from the Destinations page in the console. Lanby uses an OAuth-style linking flow — click <strong>Link Telegram</strong>, open the bot link, and send the provided code. The destination is active immediately.
+      </p>
+
+      <h3>Message templates</h3>
+      <p>
+        Each Telegram destination has a configurable message template with access to event variables: <code>{{monitor_name}}</code>, <code>{{status}}</code>, <code>{{message}}</code>, <code>{{url}}</code>, <code>{{fired_at}}</code>. Lanby supports both plain text and MarkdownV2 formatting.
+      </p>
+
+      <h3>Parse mode</h3>
+      <p>Set <strong>parse mode</strong> to <code>MarkdownV2</code> to use Telegram's rich formatting in your messages. Use <code>None</code> if your template contains characters that conflict with Telegram's Markdown escaping.</p>
+
+      <!-- ── Topics ── -->
+      <h2 id="topics">Topic routing</h2>
+      <p>
+        Topics decouple monitors from destinations. Instead of wiring each monitor directly to each destination, you assign monitors a topic (e.g. <code>homelab</code>, <code>critical</code>, <code>cron-jobs</code>) and configure destinations to receive events on those topics.
+      </p>
+      <p>
+        This means you can add or remove destinations without touching monitor configuration. One Telegram destination subscribed to <code>critical</code> gets all critical alerts; swap it for a webhook without re-configuring any monitors.
+      </p>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <span>A destination can subscribe to multiple topics. An event published to a topic is delivered to every destination subscribed to that topic.</span>
+      </div>
+
+      <!-- ── DLQ ── -->
+      <h2 id="dlq">Dead-letter queue</h2>
+      <p>
+        When a destination is unreachable and all retries are exhausted, Lanby moves the event to the <strong>dead-letter queue</strong>. You can review and replay DLQ events from the console — useful for recovering alerts that fired while a webhook endpoint was briefly down.
+      </p>
+      <p>
+        DLQ events are retained for 7 days. After that they are dropped.
+      </p>
+
+      <!-- ── Planned ── -->
+      <h2 id="planned">Planned destinations</h2>
+      <p>More delivery channels are on the roadmap. Currently planned:</p>
+      <div class="dest-list">
+        <div class="dest-card" style="opacity:0.65;">
+          <div class="dest-card-header">
+            <h3 style="color: var(--muted);">Slack, Discord, ntfy, Gotify</h3>
+            <span class="badge planned"><span class="badge-dot"></span>Planned</span>
+          </div>
+          <p>Direct integrations with the most common self-hosted and SaaS notification channels.</p>
+        </div>
+        <div class="dest-card" style="opacity:0.65;">
+          <div class="dest-card-header">
+            <h3 style="color: var(--muted);">Email</h3>
+            <span class="badge planned"><span class="badge-dot"></span>Planned</span>
+          </div>
+          <p>Deliver alerts to an email address or distribution list.</p>
+        </div>
+        <div class="dest-card" style="opacity:0.65;">
+          <div class="dest-card-header">
+            <h3 style="color: var(--muted);">PagerDuty / Opsgenie</h3>
+            <span class="badge planned"><span class="badge-dot"></span>Planned</span>
+          </div>
+          <p>For teams already using an on-call platform — route Lanby alerts directly into their incident workflows.</p>
+        </div>
+      </div>
+
+      <div class="doc-footer">
+        <a href="/docs/keepalive.html">← Keepalive heartbeats</a>
+        <a href="/docs/notifications.html">Notification API →</a>
+      </div>
+
+    </article>
+  </div>
+
+</body>
+</html>
