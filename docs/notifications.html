@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Notification API — Lanby Docs</title>
-  <meta name="description" content="Publish notifications to Lanby from scripts, cron jobs, and applications using the REST API." />
+  <title>Publish API — Lanby Docs</title>
+  <meta name="description" content="Publish events to Lanby from scripts, cron jobs, and applications using the REST API." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -288,7 +288,7 @@
       <span class="nav-sep">/</span>
       <a href="/docs/" class="nav-link">Docs</a>
       <span class="nav-sep">/</span>
-      <span class="nav-current">Notification API</span>
+      <span class="nav-current">Publish API</span>
     </div>
     <a href="https://console.lanby.dev" class="nav-console">Console →</a>
   </nav>
@@ -304,11 +304,11 @@
       <a href="/docs/monitors.html#probes" class="sub">Probes</a>
       <a href="/docs/keepalive.html" class="sub">Keepalives</a>
 
-      <p class="sidebar-section-label">Alerts &amp; Notifications</p>
+      <p class="sidebar-section-label">Alerts &amp; Delivery</p>
       <a href="/docs/destinations.html">Destinations</a>
-      <a href="/docs/notifications.html" class="active">Notification API</a>
+      <a href="/docs/notifications.html" class="active">Publish API</a>
       <a href="#authentication" class="sub">Authentication</a>
-      <a href="#sending" class="sub">Sending a notification</a>
+      <a href="#sending" class="sub">Publishing an event</a>
       <a href="#fields" class="sub">Fields</a>
       <a href="#priority" class="sub">Priority levels</a>
       <a href="#examples" class="sub">Examples</a>
@@ -319,11 +319,11 @@
       <div class="breadcrumb">
         <a href="/docs/">Docs</a>
         <span class="breadcrumb-sep">/</span>
-        <span>Notification API</span>
+        <span>Publish API</span>
       </div>
 
-      <h1>Notification API</h1>
-      <p class="page-sub">Publish a notification to Lanby from any script, cron job, application, or service with a single HTTP call. Lanby routes it to your configured destinations — the same ones your monitor alerts use.</p>
+      <h1>Publish API</h1>
+      <p class="page-sub">Publish an event to Lanby from any script, cron job, application, or service with a single HTTP call. Lanby routes it to your configured destinations — the same ones your monitor alerts use.</p>
 
       <h2 id="authentication">Authentication</h2>
       <p>
@@ -332,7 +332,7 @@
       <pre><code>X-API-Key: lnby_live_...</code></pre>
       <p>Keep your API key secret. If one is compromised, revoke it from the console and generate a new one.</p>
 
-      <h2 id="sending">Sending a notification</h2>
+      <h2 id="sending">Publishing an event</h2>
 
       <pre><code>POST https://api.lanby.dev/v1/notifications
 Content-Type: application/json

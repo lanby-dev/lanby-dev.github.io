@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lanby — Monitoring &amp; Notifications for Self-Hosters</title>
-  <meta name="description" content="Uptime monitoring, alerting, and a general-purpose notification bus. Built for self-hosters and small teams." />
+  <title>Lanby — Monitoring &amp; Event Delivery for Self-Hosters</title>
+  <meta name="description" content="Uptime monitoring, alerting, and event delivery from your scripts and apps. Built for self-hosters and small teams." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -516,11 +516,11 @@
   <div class="hero">
     <div class="hero-eyebrow">
       <span class="hero-eyebrow-dot"></span>
-      Uptime monitoring &amp; notifications
+      Uptime monitoring &amp; event delivery
     </div>
     <h1>Watch your stack.<br><em>Alert on what matters.</em></h1>
     <p class="hero-sub">
-      Lanby monitors your services from the outside and from inside your network, fires alerts the moment something breaks, and doubles as a general-purpose notification bus for everything else you run.
+      Lanby monitors your services from the outside and from inside your network, fires alerts the moment something breaks, and delivers events from your scripts and apps to wherever you're paying attention.
     </p>
     <p class="beta-notice">
       <strong>Currently invite-only beta.</strong> We're building in the open — access is limited while we iron things out.
@@ -537,7 +537,7 @@
   <section id="features">
     <div class="section-label">What Lanby does</div>
     <h2 class="section-title">Everything you need to know<br>when something breaks</h2>
-    <p class="section-sub">Three tightly integrated pieces: comprehensive monitoring, instant alerts, and a flexible notification layer.</p>
+    <p class="section-sub">Three tightly integrated pieces: comprehensive monitoring, instant alerts, and a publish API for everything else you run.</p>
 
     <div class="pillars">
 
@@ -578,15 +578,15 @@
         </div>
       </div>
 
-      <!-- Notifications -->
+      <!-- Publishers -->
       <div class="pillar">
         <div class="pillar-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           </svg>
         </div>
-        <h3>Notifications</h3>
-        <p>Publish arbitrary notifications from any script, cron job, or application using a simple API call. Lanby fans them out to your configured destinations — no extra infrastructure needed.</p>
+        <h3>Publishers</h3>
+        <p>Publish events from any script, cron job, or application with a single API call. Lanby routes them to your configured destinations — the same ones your monitor alerts use.</p>
         <div class="pillar-chips">
           <span class="chip">REST API</span>
           <span class="chip">Cron jobs</span>
@@ -628,8 +628,8 @@
 
       <div class="usecase-card">
         <div class="usecase-icon">📣</div>
-        <h4>Event notifications</h4>
-        <p>Publish a notification from a backup script, deploy hook, or any one-off event — delivered wherever you're already paying attention.</p>
+        <h4>Publish from anywhere</h4>
+        <p>Send an event from a backup script, deploy hook, or any one-off job — delivered wherever you're already paying attention.</p>
       </div>
 
       <div class="usecase-card">

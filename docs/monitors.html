@@ -424,9 +424,9 @@
       <a href="/docs/keepalive.html" class="sub">Keepalives</a>
       <a href="#about-the-name" class="sub">About the name</a>
 
-      <p class="sidebar-section-label">Alerts &amp; Notifications</p>
+      <p class="sidebar-section-label">Alerts &amp; Delivery</p>
       <a href="/docs/destinations.html">Destinations</a>
-      <a href="/docs/notifications.html">Notification API</a>
+      <a href="/docs/notifications.html">Publish API</a>
     </aside>
 
     <article class="content">
@@ -442,7 +442,7 @@
 
       <!-- ── Diagram: two categories ── -->
       <div class="diagram-wrap">
-        <svg viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:640px; display:block; margin:0 auto;">
+        <svg viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:640px; display:block; margin:0 auto;">
           <defs>
             <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
               <path d="M0,0 L0,6 L8,3 z" fill="#6366f1"/>
@@ -666,7 +666,7 @@
               Lanby generates a unique endpoint URL for each keepalive monitor. Your service sends a <code>POST</code> to that URL to register a check-in. If a check-in doesn't arrive within the configured interval plus a grace period, the monitor goes down.
             </p>
             <ul style="margin-bottom:0.75rem;">
-              <li>Unique per-monitor ingest URL — no credentials needed beyond an API key</li>
+              <li>Unique per-monitor heartbeat URL — no credentials needed beyond an API key</li>
               <li>Configurable interval and grace period</li>
               <li>Works from any language or environment that can make an HTTP request</li>
               <li>Code snippets available in the console: curl, bash, cron, Python</li>
