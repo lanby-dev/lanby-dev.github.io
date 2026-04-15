@@ -327,16 +327,16 @@
 
       <h2 id="authentication">Authentication</h2>
       <p>
-        All API requests require an API key passed in the <code>X-API-Key</code> header. Create and manage API keys in the console under <strong>Settings → API Keys</strong>.
+        All API requests require an API key passed as a Bearer token in the <code>Authorization</code> header. Create and manage API keys in the console under <strong>Settings → API Keys</strong>.
       </p>
-      <pre><code>X-API-Key: lnby_live_...</code></pre>
+      <pre><code>Authorization: Bearer lnby_live_...</code></pre>
       <p>Keep your API key secret. If one is compromised, revoke it from the console and generate a new one.</p>
 
       <h2 id="sending">Publishing an event</h2>
 
       <pre><code>POST https://api.lanby.dev/v1/notifications
 Content-Type: application/json
-X-API-Key: lnby_live_...
+Authorization: Bearer lnby_live_...
 
 {
   "title":    "Backup completed",
@@ -412,7 +412,7 @@ X-API-Key: lnby_live_...
       <h3>curl</h3>
       <pre><code>curl -s -X POST https://api.lanby.dev/v1/notifications \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: lnby_live_..." \
+  -H "Authorization: Bearer lnby_live_..." \
   -d '{
     "title":    "Backup completed",
     "body":     "Full snapshot: 142 GB in 4m 12s.",
@@ -426,7 +426,7 @@ X-API-Key: lnby_live_...
 requests.post(
     "https://api.lanby.dev/v1/notifications",
     headers={
-        "X-API-Key": "lnby_live_...",
+        "Authorization": "Bearer lnby_live_...",
         "Content-Type": "application/json",
     },
     json={
@@ -448,7 +448,7 @@ run_backup
 # Notify on success
 curl -s -X POST https://api.lanby.dev/v1/notifications \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: ${LANBY_API_KEY}" \
+  -H "Authorization: Bearer ${LANBY_API_KEY}" \
   -d "{\"title\": \"Backup done\", \"topic\": \"cron-jobs\", \"priority\": 1}" \
   --max-time 5 || true</code></pre>
 

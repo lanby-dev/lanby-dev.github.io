@@ -348,19 +348,19 @@
 
       <h2 id="sending">Sending a heartbeat</h2>
       <p>
-        Send a <code>POST</code> request to the monitor's endpoint URL with your API key in the <code>X-API-Key</code> header. The request body is ignored — only the arrival is recorded.
+        Send a <code>POST</code> request to the monitor's endpoint URL with your API key as a Bearer token in the <code>Authorization</code> header. The request body is ignored — only the arrival is recorded.
       </p>
 
       <h3>curl</h3>
       <pre><code>curl -s -X POST https://api.lanby.dev/beat/&lt;monitor-id&gt; \
-  -H "X-API-Key: &lt;your-api-key&gt;"</code></pre>
+  -H "Authorization: Bearer &lt;your-api-key&gt;"</code></pre>
 
       <h3>Shell / cron</h3>
       <p>Add to the end of a cron job — the <code>&&</code> ensures the heartbeat only fires on success:</p>
       <pre><code># crontab entry
 0 3 * * * /opt/scripts/backup.sh && \
   curl -s -X POST https://api.lanby.dev/beat/&lt;monitor-id&gt; \
-    -H "X-API-Key: &lt;your-api-key&gt;" &gt; /dev/null</code></pre>
+    -H "Authorization: Bearer &lt;your-api-key&gt;" &gt; /dev/null</code></pre>
 
       <h3>Python</h3>
       <pre><code>import requests
@@ -374,7 +374,7 @@ run_job()
 # Notify Lanby on success
 requests.post(
     "https://api.lanby.dev/beat/&lt;monitor-id&gt;",
-    headers={"X-API-Key": "&lt;your-api-key&gt;"},
+    headers={"Authorization": "Bearer &lt;your-api-key&gt;"},
     timeout=5,
 )</code></pre>
 
@@ -383,7 +383,7 @@ requests.post(
       <pre><code>[Service]
 ExecStart=/opt/scripts/backup.sh
 ExecStartPost=curl -s -X POST https://api.lanby.dev/beat/&lt;monitor-id&gt; \
-  -H "X-API-Key: &lt;your-api-key&gt;"</code></pre>
+  -H "Authorization: Bearer &lt;your-api-key&gt;"</code></pre>
 
       <div class="callout tip">
         <span class="callout-icon">💡</span>
