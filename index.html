@@ -516,28 +516,36 @@
   <div class="hero">
     <div class="hero-eyebrow">
       <span class="hero-eyebrow-dot"></span>
-      Built for self-hosters
+      A solo project, currently in beta
     </div>
     <h1>Host your services.<br><em>Not your monitoring.</em></h1>
     <p class="hero-sub">
-      You already run the stack. Lanby is the one piece that works better as a hosted service — uptime probes, heartbeat alerts, and event delivery, with a relay agent that reaches everything behind your firewall without opening a single inbound port.
+      I run a lot of self-hosted services and built Lanby because I kept finding out things were broken long after the fact. Uptime probes, heartbeat alerts, and a relay agent that monitors what's behind your firewall — no inbound ports needed.
     </p>
     <p class="beta-notice">
-      <strong>Currently invite-only beta.</strong> We're building in the open — access is limited while we iron things out.
+      <strong>Invite-only for now.</strong> I'm using it for my own stack while I build it out — reach out if you want early access.
     </p>
     <div class="hero-actions">
       <a href="https://console.lanby.dev" class="btn-primary">Sign in to console</a>
-      <a href="#features" class="btn-ghost">See how it works ↓</a>
+      <a href="#roadmap" class="btn-ghost">What I'm building next ↓</a>
     </div>
   </div>
 
   <div class="section-divider"></div>
 
+  <!-- Origin -->
+  <section style="padding: 3.5rem 2rem;">
+    <p style="max-width: 620px; font-size: 1rem; color: var(--muted); line-height: 1.8;">
+      Most monitoring tools are built for teams running cloud infrastructure. The self-hosted ones — Uptime Kuma, Healthchecks — are great, but now you're hosting your monitoring too, and if that goes down you're back to square one. I wanted something that watched my stack without becoming part of it. That's what Lanby is.
+    </p>
+  </section>
+
+  <div class="section-divider"></div>
+
   <!-- Features: 3 pillars -->
   <section id="features">
-    <div class="section-label">What Lanby does</div>
-    <h2 class="section-title">Three tools.<br>No new servers to maintain.</h2>
-    <p class="section-sub">Active probes check your services from outside, relay agents check from inside your network, and a shared alert pipeline delivers to wherever you're already looking.</p>
+    <h2 class="section-title">What it does</h2>
+    <p class="section-sub">Active probes check your services from outside, a relay agent checks from inside your network, and alerts go to wherever you're already paying attention.</p>
 
     <div class="pillars">
 
@@ -602,46 +610,33 @@
 
   <!-- Use cases -->
   <section id="use-cases">
-    <div class="section-label">Built for self-hosters</div>
-    <h2 class="section-title">Everything you run.<br>All in one place.</h2>
-    <p class="section-sub">Homelab, VPS, Proxmox cluster, NAS, cron jobs — Lanby covers the monitoring and alerting across all of it without becoming another thing you need to maintain.</p>
+    <h2 class="section-title">Things I use it for</h2>
+    <p class="section-sub">Not an exhaustive list — just the stuff that actually comes up when you're running a bunch of services.</p>
 
-    <div class="usecases-grid">
+    <div class="usecases-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
 
       <div class="usecase-card">
-        <div class="usecase-icon">🏠</div>
-        <h4>Private services, no exposure</h4>
-        <p>The relay agent runs inside your network and phones home over outbound HTTPS. No inbound ports. No firewall rules. Your internal services stay internal.</p>
+        <div class="usecase-icon">⏱️</div>
+        <h4>Cron job monitoring</h4>
+        <p>Send a heartbeat after each successful run. Miss a window and Lanby fires an alert. This is how I know my backups actually ran.</p>
       </div>
 
       <div class="usecase-card">
         <div class="usecase-icon">🌐</div>
         <h4>External endpoint checks</h4>
-        <p>Monitor public HTTP endpoints for status codes, response content, TLS certificate expiry, and redirect behaviour — from outside your network.</p>
+        <p>HTTP probes with TLS expiry checks, status codes, and response content — from outside your network, so you catch what users would catch.</p>
       </div>
 
       <div class="usecase-card">
-        <div class="usecase-icon">⏱️</div>
-        <h4>Cron job monitoring</h4>
-        <p>Send a heartbeat ping after each successful run. Miss a window and Lanby fires an alert — so silent failures in scheduled tasks don't go unnoticed.</p>
+        <div class="usecase-icon">🔌</div>
+        <h4>Non-HTTP services</h4>
+        <p>TCP and ping probes for databases, game servers, local DNS — anything that doesn't speak HTTP but still needs to be up.</p>
       </div>
 
       <div class="usecase-card">
         <div class="usecase-icon">📣</div>
         <h4>Script &amp; job events</h4>
-        <p>Publish a completion event from a backup script, deploy hook, or any one-off job — delivered wherever you're already paying attention.</p>
-      </div>
-
-      <div class="usecase-card">
-        <div class="usecase-icon">🔌</div>
-        <h4>Non-HTTP service health</h4>
-        <p>TCP and ping probes tell you whether a service is listening — no HTTP required. Databases, game servers, IoT devices, anything with a port.</p>
-      </div>
-
-      <div class="usecase-card">
-        <div class="usecase-icon">🔒</div>
-        <h4>TLS &amp; DNS hygiene</h4>
-        <p>Catch expiring certificates and DNS misconfigurations before your users do, with configurable warning windows and alert routing.</p>
+        <p>One API call from a backup script or deploy hook — delivered to wherever you're already looking. Same routing as monitor alerts.</p>
       </div>
 
     </div>
@@ -660,40 +655,39 @@
 
   <!-- Roadmap -->
   <section id="roadmap">
-    <div class="section-label">What's coming</div>
-    <h2 class="section-title">Roadmap</h2>
-    <p class="section-sub">We're actively building. Here's what's next — roughly in the order we're working on it.</p>
+    <h2 class="section-title">What I'm building next</h2>
+    <p class="section-sub">Roughly in order. Some of this is nearly done; some is still figuring itself out.</p>
 
     <div class="roadmap-grid">
 
       <div class="roadmap-card">
-        <span class="roadmap-tag soon"><span class="roadmap-tag-dot"></span>Coming soon</span>
+        <span class="roadmap-tag soon"><span class="roadmap-tag-dot"></span>Nearly there</span>
         <h4>Status pages</h4>
-        <p>Public and private status pages driven by your monitors. Share a live view of your service health without exposing your dashboard.</p>
-      </div>
-
-      <div class="roadmap-card">
-        <span class="roadmap-tag planned"><span class="roadmap-tag-dot"></span>Planned</span>
-        <h4>Service tunneling</h4>
-        <p>Expose a specific internal service to a trusted user without opening firewall ports or setting up a VPN. Controlled access via the relay, routed through Lanby.</p>
-      </div>
-
-      <div class="roadmap-card">
-        <span class="roadmap-tag planned"><span class="roadmap-tag-dot"></span>Planned</span>
-        <h4>Self-hosted app integrations</h4>
-        <p>First-class integrations with Grafana, Portainer, Authentik, Vaultwarden, Home Assistant, and more. One-click monitoring and alert routing without writing webhook glue.</p>
+        <p>Public and private status pages driven by your monitors. Share a live view with users without handing them your dashboard.</p>
       </div>
 
       <div class="roadmap-card">
         <span class="roadmap-tag planned"><span class="roadmap-tag-dot"></span>Planned</span>
         <h4>More alert destinations</h4>
-        <p>ntfy, Gotify, Slack, Discord, email, and anything else the self-hosting community reaches for. If you have a favourite, let us know.</p>
+        <p>ntfy and Gotify are the obvious next ones for self-hosters. Slack, Discord, and email after that. If you use something I haven't listed, let me know.</p>
       </div>
 
       <div class="roadmap-card">
         <span class="roadmap-tag planned"><span class="roadmap-tag-dot"></span>Planned</span>
+        <h4>Self-hosted app integrations</h4>
+        <p>Native integrations with things like Home Assistant, Vaultwarden, Authentik, and Portainer — so you're not writing webhook glue for every app you run.</p>
+      </div>
+
+      <div class="roadmap-card">
+        <span class="roadmap-tag planned"><span class="roadmap-tag-dot"></span>Planned</span>
+        <h4>Service tunneling</h4>
+        <p>Expose a specific internal service to a trusted user without opening firewall ports. Still figuring out the right shape for this one.</p>
+      </div>
+
+      <div class="roadmap-card">
+        <span class="roadmap-tag planned"><span class="roadmap-tag-dot"></span>Eventually</span>
         <h4>Mobile apps</h4>
-        <p>Native iOS and Android apps for monitoring at a glance, push notifications, and managing alerts on the go.</p>
+        <p>Push notifications and a quick status view on your phone. Makes sense — just not the most urgent thing right now.</p>
       </div>
 
     </div>
@@ -711,7 +705,7 @@
       <a href="/docs/">Docs</a>
       <a href="https://console.lanby.dev">Console</a>
     </div>
-    <p>Currently in invite-only beta.</p>
+    <p>Solo project. Invite-only for now.</p>
   </footer>
 
 </body>
