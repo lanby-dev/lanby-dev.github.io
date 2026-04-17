@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lanby — Monitoring for Self-Hosters, Without More Things to Host</title>
-  <meta name="description" content="Uptime monitoring, heartbeat alerts, and event delivery for self-hosters. A relay agent reaches everything behind your firewall — no inbound ports required." />
+  <meta name="description" content="Uptime monitoring, heartbeat alerts, and event delivery for self-hosters. A relay reaches everything behind your firewall — no inbound ports required." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -91,7 +91,7 @@
     .hero {
       max-width: 860px;
       margin: 0 auto;
-      padding: 7rem 2rem 5rem;
+      padding: 5rem 2rem 4rem;
       text-align: center;
     }
 
@@ -206,7 +206,7 @@
     section {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 5rem 2rem;
+      padding: 3.5rem 2rem;
     }
 
     .section-label {
@@ -243,7 +243,7 @@
       border: 1px solid var(--border);
       border-radius: 1rem;
       overflow: hidden;
-      margin-top: 3.5rem;
+      margin-top: 2.5rem;
     }
 
     .pillar {
@@ -309,7 +309,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1rem;
-      margin-top: 3rem;
+      margin-top: 2.5rem;
     }
 
     .usecase-card {
@@ -343,36 +343,216 @@
       line-height: 1.6;
     }
 
-    /* ── Relay callout ───────────────────────────────────────────────── */
-    .relay-callout {
-      margin-top: 3rem;
+    /* ── Relay section ───────────────────────────────────────────────── */
+    .relay-section {
+      margin-top: 2.5rem;
+    }
+
+    .relay-intro {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 680px;
+      margin-bottom: 2rem;
+    }
+
+    .relay-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 720px) {
+      .relay-cols { grid-template-columns: 1fr; }
+    }
+
+    .relay-col-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .feature-list li {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 0.9rem 1rem 0.9rem 1.25rem;
+      border-left: 2px solid var(--border-2);
+      margin-left: 0.25rem;
+    }
+
+    .feature-list li + li {
+      border-top: 1px solid var(--border);
+    }
+
+    .feature-list li strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.2rem;
+      font-size: 0.875rem;
+    }
+
+    .relay-callout-info {
+      background: rgba(99, 102, 241, 0.07);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 0.6rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: #a5b4fc;
+      line-height: 1.65;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-top: 1.5rem;
+    }
+
+    .relay-diagram {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 1rem;
-      padding: 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      overflow-x: auto;
+    }
+
+    .relay-diagram-caption {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted-2);
+      margin-top: 1rem;
+    }
+
+    .relay-docs-link {
+      display: inline-flex;
       align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--accent);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .relay-docs-link:hover {
+      border-color: var(--accent);
+      background: rgba(99,102,241,0.07);
+      text-decoration: none;
     }
 
-    @media (max-width: 640px) {
-      .relay-callout { grid-template-columns: 1fr; }
+    /* ── Feature showcase ───────────────────────────────────────────── */
+    .showcase {
+      margin-top: 0;
     }
 
-    .relay-callout h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
+    .showcase-item:first-child {
+      padding-top: 0;
+    }
+
+    .showcase-item {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      padding: 2.5rem 0;
+    }
+
+    .showcase-item + .showcase-item {
+      border-top: 1px solid var(--border);
+    }
+
+    .showcase-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .showcase-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .showcase-text h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
       color: #fff;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
+      letter-spacing: -0.025em;
+      line-height: 1.25;
     }
 
-    .relay-callout p {
+    .showcase-text p {
       font-size: 0.9rem;
       color: var(--muted);
-      line-height: 1.65;
-      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    .showcase-visual {
+      flex: 1.7;
+    }
+
+    .screenshot-placeholder {
+      aspect-ratio: 16 / 10;
+      background: var(--surface);
+      border: 1px dashed var(--border-2);
+      border-radius: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      color: var(--muted-2);
+    }
+
+    .screenshot-placeholder svg {
+      width: 28px;
+      height: 28px;
+      opacity: 0.4;
+    }
+
+    .screenshot-placeholder span {
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+    }
+
+    .screenshot {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+      display: block;
+    }
+
+    .showcase-item.reverse .showcase-visual {
+      order: -1;
+    }
+
+    @media (max-width: 768px) {
+      .showcase-item {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 0;
+      }
+      .showcase-visual,
+      .showcase-item.reverse .showcase-visual {
+        order: 1;
+        width: 100%;
+        flex: none;
+      }
+      .showcase-text { flex: none; order: 0; }
     }
 
     /* ── Roadmap ─────────────────────────────────────────────────────── */
@@ -380,7 +560,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1rem;
-      margin-top: 3rem;
+      margin-top: 2.5rem;
     }
 
     .roadmap-card {
@@ -506,6 +686,7 @@
     <span class="nav-wordmark">Lanby<span>.</span></span>
     <div class="nav-links">
       <a href="#features">Features</a>
+      <a href="#relay">Relay</a>
       <a href="#roadmap">Roadmap</a>
       <a href="/docs/">Docs</a>
     </div>
@@ -520,7 +701,7 @@
     </div>
     <h1>Host your services.<br><em>Not your monitoring.</em></h1>
     <p class="hero-sub">
-      I run a lot of self-hosted services and built Lanby because I kept finding out things were broken long after the fact. Uptime probes, heartbeat alerts, and a relay agent that monitors what's behind your firewall — no inbound ports needed.
+      I run a lot of self-hosted services and kept finding out things were broken long after the fact. Tools like Uptime Kuma are great, but now you're hosting your monitoring too — and if that goes down, you're back to square one. I wanted something that watched my stack without becoming part of it. Uptime probes, heartbeat alerts, and a relay that reaches everything behind your firewall — no inbound ports needed.
     </p>
     <p class="beta-notice">
       <strong>Invite-only for now.</strong> I'm using it for my own stack while I build it out — reach out if you want early access.
@@ -533,19 +714,10 @@
 
   <div class="section-divider"></div>
 
-  <!-- Origin -->
-  <section style="padding: 3.5rem 2rem;">
-    <p style="max-width: 620px; font-size: 1rem; color: var(--muted); line-height: 1.8;">
-      Most monitoring tools are built for teams running cloud infrastructure. The self-hosted ones — Uptime Kuma, Healthchecks — are great, but now you're hosting your monitoring too, and if that goes down you're back to square one. I wanted something that watched my stack without becoming part of it. That's what Lanby is.
-    </p>
-  </section>
-
-  <div class="section-divider"></div>
-
   <!-- Features: 3 pillars -->
   <section id="features">
     <h2 class="section-title">What it does</h2>
-    <p class="section-sub">Active probes check your services from outside, a relay agent checks from inside your network, and alerts go to wherever you're already paying attention.</p>
+    <p class="section-sub">Active probes check your services from outside, the relay checks from inside your network, and alerts go to wherever you're already paying attention.</p>
 
     <div class="pillars">
 
@@ -564,6 +736,7 @@
           <span class="chip">ICMP ping</span>
           <span class="chip">DNS</span>
           <span class="chip">gRPC health</span>
+          <span class="chip">TLS cert expiry</span>
           <span class="chip">Keepalive heartbeat</span>
         </div>
       </div>
@@ -608,6 +781,63 @@
 
   <div class="section-divider"></div>
 
+  <!-- Feature showcase -->
+  <section id="showcase">
+    <div class="showcase">
+
+      <!-- 1: Fleet dashboard — text left, screenshot right -->
+      <div class="showcase-item">
+        <div class="showcase-text">
+          <span class="showcase-eyebrow">Overview</span>
+          <h3>Your whole stack, at a glance</h3>
+          <p>The fleet dashboard shows every monitor's current status, recent check history, and response-time trends — all updating live. Spot a degraded service the moment it starts struggling, not after users start complaining.</p>
+        </div>
+        <div class="showcase-visual">
+          <img src="screenshots/dashboard.png" alt="Lanby fleet dashboard showing monitor status and latency trends" class="screenshot" />
+        </div>
+      </div>
+
+      <!-- 2: Monitor detail — screenshot left, text right -->
+      <div class="showcase-item reverse">
+        <div class="showcase-text">
+          <span class="showcase-eyebrow">Monitor detail</span>
+          <h3>When it went down and how long it took</h3>
+          <p>Drill into any monitor for a full response-time chart, uptime percentage, and a log of recent check results. Every data point is timestamped so you can correlate incidents with deploys or other changes.</p>
+        </div>
+        <div class="showcase-visual">
+          <img src="screenshots/monitor-detail.png" alt="Lanby monitor detail showing uptime stats and latency chart" class="screenshot" />
+        </div>
+      </div>
+
+      <!-- 3: Heartbeat — text left, screenshot right -->
+      <div class="showcase-item">
+        <div class="showcase-text">
+          <span class="showcase-eyebrow">Heartbeat monitoring</span>
+          <h3>Know when a job stops running</h3>
+          <p>Heartbeat monitors expect a check-in on a schedule — from a cron job, backup script, or any process. Miss a window and Lanby fires an alert. This is how you find out a backup silently stopped running, not three weeks after the fact.</p>
+        </div>
+        <div class="showcase-visual">
+          <img src="screenshots/heartbeat.png" alt="Lanby heartbeat monitor showing check-in history and integration code" class="screenshot" />
+        </div>
+      </div>
+
+      <!-- 4: Alert channels — screenshot left, text right -->
+      <div class="showcase-item reverse">
+        <div class="showcase-text">
+          <span class="showcase-eyebrow">Alerts</span>
+          <h3>Alerts go where you're already looking</h3>
+          <p>Configure destinations once — Telegram, webhooks, or whatever you use — then route monitors to them by topic. Critical alerts can go to one place, lower-priority ones somewhere else. No new inbox to check.</p>
+        </div>
+        <div class="showcase-visual">
+          <img src="screenshots/destinations.png" alt="Lanby destination configuration for Telegram with message template" class="screenshot" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
   <!-- Use cases -->
   <section id="use-cases">
     <h2 class="section-title">Things I use it for</h2>
@@ -624,7 +854,7 @@
       <div class="usecase-card">
         <div class="usecase-icon">🌐</div>
         <h4>External endpoint checks</h4>
-        <p>HTTP probes with TLS expiry checks, status codes, and response content — from outside your network, so you catch what users would catch.</p>
+        <p>HTTP probes checking status codes and response content from outside your network. TLS certificate expiry is checked on every probe — get alerted before a cert expires, not after users start seeing browser warnings.</p>
       </div>
 
       <div class="usecase-card">
@@ -641,13 +871,127 @@
 
     </div>
 
-    <!-- Relay callout -->
-    <div class="relay-callout">
-      <div>
-        <h3>Monitor what's behind your firewall — without opening it</h3>
-        <p>The relay is a lightweight Docker container that runs inside your network and calls out over HTTPS. No inbound ports, no port forwarding, no reverse proxy hacks. Assign probes to a relay and they run from inside — reaching your NAS, internal DNS, private services — exactly as if you ran them from a local shell. One relay covers a whole network segment.</p>
+    <!-- Relay section -->
+    <div class="relay-section" id="relay">
+      <h3 style="font-size:1.2rem; font-weight:700; color:#fff; letter-spacing:-0.02em; margin-bottom:0.75rem;">The relay</h3>
+
+      <p class="relay-intro">
+        Lanby's platform probes run from the internet. That works for public services, but breaks down for anything on a private network — a NAS, a database, a service behind a VPN. The relay is a Docker container you run inside your own network. It polls Lanby for assigned monitors, runs the probes locally, and POSTs the results back. Your firewall doesn't change.
+      </p>
+
+      <!-- Diagram -->
+      <div class="relay-diagram">
+        <svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block; margin:0 auto;">
+          <defs>
+            <marker id="rah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#6366f1"/></marker>
+            <marker id="rahl" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#34d399"/></marker>
+          </defs>
+
+          <!-- Lanby -->
+          <rect x="20" y="70" width="130" height="70" rx="8" fill="#16161c" stroke="#26262f" stroke-width="1.5"/>
+          <text x="85" y="101" text-anchor="middle" font-size="12" fill="#a5b4fc" font-family="system-ui,sans-serif" font-weight="700">Lanby</text>
+          <text x="85" y="118" text-anchor="middle" font-size="9.5" fill="#4a4a54" font-family="system-ui,sans-serif">monitor config</text>
+          <text x="85" y="131" text-anchor="middle" font-size="9.5" fill="#4a4a54" font-family="system-ui,sans-serif">+ result store</text>
+
+          <!-- Relay -->
+          <rect x="250" y="70" width="130" height="70" rx="8" fill="#111116" stroke="#6366f1" stroke-width="1.5"/>
+          <text x="315" y="101" text-anchor="middle" font-size="12" fill="#a5b4fc" font-family="system-ui,sans-serif" font-weight="700">Relay</text>
+          <text x="315" y="118" text-anchor="middle" font-size="9.5" fill="#6366f1" font-family="system-ui,sans-serif">your network</text>
+          <text x="315" y="131" text-anchor="middle" font-size="9" fill="#3a3a42" font-family="ui-monospace,monospace">Docker container</text>
+
+          <!-- Targets -->
+          <rect x="480" y="48" width="130" height="36" rx="6" fill="#111116" stroke="#26262f" stroke-width="1"/>
+          <text x="545" y="71" text-anchor="middle" font-size="10" fill="#70707a" font-family="system-ui,sans-serif">Internal services</text>
+
+          <rect x="480" y="96" width="130" height="36" rx="6" fill="#111116" stroke="#26262f" stroke-width="1"/>
+          <text x="545" y="119" text-anchor="middle" font-size="10" fill="#70707a" font-family="system-ui,sans-serif">Databases / TCP</text>
+
+          <rect x="480" y="144" width="130" height="36" rx="6" fill="#111116" stroke="#26262f" stroke-width="1"/>
+          <text x="545" y="167" text-anchor="middle" font-size="10" fill="#70707a" font-family="system-ui,sans-serif">DNS / ICMP</text>
+
+          <!-- ① poll -->
+          <path d="M250,95 L150,95" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#rah)"/>
+          <text x="200" y="88" text-anchor="middle" font-size="9" fill="#6366f1" font-family="system-ui,sans-serif">① poll (HTTPS)</text>
+
+          <!-- ② config returned -->
+          <path d="M150,115 L250,115" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#rah)"/>
+          <text x="200" y="130" text-anchor="middle" font-size="9" fill="#4a4a54" font-family="system-ui,sans-serif">② probe config</text>
+
+          <!-- ③ local probes -->
+          <path d="M380,88 L480,66" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#rah)"/>
+          <path d="M380,105 L480,114" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#rah)"/>
+          <path d="M380,122 L480,162" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#rah)"/>
+          <text x="430" y="185" text-anchor="middle" font-size="9" fill="#6366f1" font-family="system-ui,sans-serif">③ local probes</text>
+
+          <!-- ④ POST results -->
+          <path d="M250,130 Q190,170 150,140" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#rahl)"/>
+          <text x="175" y="172" text-anchor="middle" font-size="9" fill="#34d399" font-family="system-ui,sans-serif">④ POST results (HTTPS)</text>
+        </svg>
+        <p class="relay-diagram-caption">The relay polls for due monitors, runs probes inside your network, then POSTs <code style="background:none;border:none;padding:0;color:#a5b4fc;font-size:0.8em;">{success, latency_ms, error}</code> back over HTTPS. No inbound traffic, ever.</p>
       </div>
-      <a href="/docs/relays.html" class="btn-ghost" style="white-space:nowrap;">How relays work →</a>
+
+      <div class="relay-cols">
+
+        <div>
+          <p class="relay-col-label">Security model</p>
+          <ul class="feature-list">
+            <li>
+              <strong>No inbound ports</strong>
+              The relay does not listen on any port. There is nothing reachable from outside your network — not from Lanby, not from anyone else.
+            </li>
+            <li>
+              <strong>Outbound HTTPS only</strong>
+              All communication is initiated by the relay over port 443. Same traffic profile as a package manager update.
+            </li>
+            <li>
+              <strong>Results only, never payload data</strong>
+              The relay sends pass/fail, latency, and error strings. Response bodies stay inside your network. Lanby never sees your services' actual traffic.
+            </li>
+            <li>
+              <strong>Unprivileged container</strong>
+              No <code>--privileged</code> flag, no host networking, no extra kernel capabilities. Runs as a normal unprivileged process.
+            </li>
+            <li>
+              <strong>Claim codes are one-time and account-scoped</strong>
+              A relay can only be claimed by someone logged in to your account. The code is single-use and only printed to local logs — it can't be discovered remotely.
+            </li>
+            <li>
+              <strong>TLS certificate expiry on internal services</strong>
+              The relay checks certificate validity and days-to-expiry on every HTTPS probe, the same way the platform probes do for public endpoints. Get alerted before an internal cert expires — even for services that are never exposed to the internet.
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="relay-col-label">What it needs to run</p>
+          <ul class="feature-list">
+            <li>
+              <strong>Docker</strong>
+              Any recent version. Compose works too.
+            </li>
+            <li>
+              <strong>Outbound port 443</strong>
+              To reach <code>api.lanby.dev</code>. No other outbound rules required.
+            </li>
+            <li>
+              <strong>Network access to probe targets</strong>
+              The relay needs to reach whatever you're asking it to check — same as running a <code>curl</code> or <code>ping</code> from that machine.
+            </li>
+            <li>
+              <strong>A persistent volume</strong>
+              Stores the identity file so the relay reconnects to your account automatically after restarts without re-claiming.
+            </li>
+          </ul>
+
+          <div class="relay-callout-info">
+            <span style="flex-shrink:0">ℹ️</span>
+            <span>One relay covers an entire network segment. You don't need a relay per host — just one per network that isn't reachable from outside.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <a href="/docs/relays.html" class="relay-docs-link">Full relay documentation →</a>
     </div>
   </section>
 
